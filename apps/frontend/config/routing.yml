@@ -1,0 +1,68 @@
+job_json:
+  url:   /json
+  param: {module: job, action: json }
+
+job_post:
+  url:   /postJob
+  param: {module: job, action: post }
+  requirements:
+    sf_method: [POST]
+
+job_search:
+  url:   /:sf_culture/search
+  param: { module: job, action: search }
+
+affiliate:
+  class:   sfPropelRouteCollection
+  options:
+    model: JobeetAffiliate
+    actions: [new, create]
+    object_actions: { wait: get }
+    prefix_path:    /:sf_culture/affiliate
+
+api_jobs:
+  url:     /api/:token/jobs.:sf_format
+  class:   sfPropelRoute
+  param:   { module: api, action: list }
+  options: { model: JobeetJob, type: list, method: getForToken }
+  requirements:
+    sf_format: (?:xml|json|yaml)
+
+category:
+  url:     /:sf_culture/category/:slug.:sf_format
+  class:   sfPropelRoute
+  param:   { module: category, action: show, sf_format: html }
+  options: { model: JobeetCategory, type: object }
+  requirements:
+    sf_format: (?:html|atom)
+
+job:
+  class:   sfPropelRouteCollection
+  options:
+    model:          JobeetJob
+    column:         token
+    object_actions: { publish: put, extend: PUT }
+    prefix_path:    /:sf_culture/job
+  requirements:
+    token: \w+
+
+job_show_user:
+  url:     /:sf_culture/job/:company_slug/:location_slug/:id/:position_slug
+  class:   sfPropelRoute
+  options:
+    model: JobeetJob
+    type:  object
+    method_for_criteria: doSelectActive
+  param:   { module: job, action: show }
+  requirements:
+    id: \d+
+    sf_method: [GET]
+homepage:
+  url:   /
+  param: { module: job, action: index }
+
+localized_homepage:
+  url:   /:sf_culture/
+  param: { module: job, action: index }
+  requirements:
+    sf_culture: (?:fr|en)

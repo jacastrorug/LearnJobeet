@@ -1,0 +1,22 @@
+<div id="jobs">
+    <div class="category_{{$ctrl.data['slug']}}">
+        <div class="category">
+            <div class="feed">
+                <a ng-href="#">Feed</a>
+            </div>
+            <h1><a ng-href="#!/category/{{$ctrl.data['slug']}}">{{$ctrl.data['name']}}</a></h1>
+        </div>
+        <table class="jobs">
+            <tr ng-class="{'even': $even, 'odd': $odd}" ng-repeat="job in $ctrl.data['jobs']">
+                <td class="location">{{job['location']}}</td>
+                <td class="position"><a ng-href="#/job/detail/{{job['id']}}">{{job['position']}}</a></td>
+                <td class="company">{{job['company']}}</td>
+            </tr>
+        </table>
+        <div ng-if="category['actives']>10" class="more_jobs">
+            and
+            <a ng-href="category/{{category['slug']}}" >{{category['actives']-10}}</a>
+            more..
+        </div>
+    </div>
+</div>
