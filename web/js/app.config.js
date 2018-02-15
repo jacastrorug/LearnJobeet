@@ -9,7 +9,8 @@ angular.module('jobeet').config(['$locationProvider', '$routeProvider',
             template: '<detail-job></detail-job>'
         }).when('/job/newJob',{
             template: '<new-job></new-job>'
-            }
-        ).otherwise('/');
+        }).when('/job/edit/:index',{
+            template: '<edit-job></edit-job>'
+        }).otherwise('/');
     }
 ]);

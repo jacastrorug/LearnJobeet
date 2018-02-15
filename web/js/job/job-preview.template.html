@@ -1,0 +1,40 @@
+<div id="job_actions">
+    <h3>Admin</h3>
+    <ul>
+        <li><a href="/en/job/b2a6f0ec86de70f6500958d9d1e2d6c242ae8276/edit">Edit</a></li>
+        <li>
+            <a>Publish</a></li>
+        <li><a>Delete</a></li>
+        <li>
+            [Bookmark this <a href="/en/job/b2a6f0ec86de70f6500958d9d1e2d6c242ae8276">URL</a> to manage this job in the
+            future.]
+        </li>
+    </ul>
+</div>
+<div id="job">
+    <h1>{{$ctrl.index['company']}}</h1>
+    <h2>{{$ctrl.index['location']}}</h2>
+    <h3>
+        {{$ctrl.index['position']}}
+        <small> - {{$ctrl.index['type']}}</small>
+    </h3>
+    <div ng-if="$ctrl.index['logo']!=null" class="logo">
+        <a ng-href="{{$ctrl.index['url']}}">
+            <img ng-src="/uploads/jobs/{{$ctrl.index['logo']}}">
+        </a>
+    </div>
+    <div ng-if="$ctrl.index['logo']==null" class="logo">
+        <a><img src="/uploads/jobs/imagenPrueba.png"></a>
+    </div>
+    <div class="description">
+        <p>{{$ctrl.index['description']}}</p>
+    </div>
+    <h4>How to apply?</h4>
+    <p class="how_to_apply">{{$ctrl.index['howToApply']}}</p>
+    <div class="meta">
+        <small>posted on {{$ctrl.index['createdAt']}}</small>
+    </div>
+    <div style="padding: 10px 10px">
+        <a ng-href="#/job/edit/{{$ctrl.index['id']}}">Edit</a>
+    </div>
+</div>

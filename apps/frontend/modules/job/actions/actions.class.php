@@ -34,33 +34,72 @@ class jobActions extends sfActions
             $list['slug'] = $category->getSlug();
             $list['jobs'] = $category->getActiveJobs($category->countActiveJobs());
             $this->categories = $list;
-        } else if($request->hasParameter('id')){
-           // $category = JobeetCategoryPeer::getForSlug('design');
+        } else if ($request->hasParameter('id')) {
+            // $category = JobeetCategoryPeer::getForSlug('design');
             $id = $request->getParameter('id');
             $job = JobeetJobPeer::getForID($id);
             $this->categories = $job;
-        }else{
+        } else {
             $this->categories = JobeetCategoryPeer::getWithJobs();
         }
         return $this->renderText(json_encode($this->categories));
     }
 
-    public function executePost(sfWebRequest $request){
-        $job = new JobeetJob();
-        $job->setCategoryId($request->getParameter('category'));
-        $job->setType($request->getParameter('type'));
-        $job->setCompany($request->getParameter('company'));
-        $job->setLogo($request->getParameter('logo'));
-        $job->setUrl($request->getParameter('url'));
-        $job->setPosition($request->getParameter('position'));
-        $job->setLocation($request->getParameter('location'));
-        $job->setDescription($request->getParameter('description'));
-        $job->setHowToApply($request->getParameter('howToApply'));
-        $job->setIsPublic(true);
-        $job->setEmail($request->getParameter('email'));
-        $job->setToken($job->getCompany().$job->getPosition().rand(0,100000));
-        BaseJobeetJobPeer::doInsert($job);
+    public function executeDeletejob()
+    {
+        $reques_body = file_get_contents('php://input');
+        $arr = json_decode($reques_body);
+        $id = $arr->id;
+        $job = JobeetJobPeer::getForID($id);
+        $job->delete();
 
+        return $this->renderText("Success delete ".$id);
+    }
+
+    public function executeEditjob()
+    {
+        $reques_body = file_get_contents('php://input');
+        $arr = json_decode($reques_body);
+        $id = $arr->id;
+        $jobarr = JobeetJobPeer::getForID($id);
+        $job = $jobarr[0];
+        $job->setCategoryId($arr->category);
+        $job->setType($arr->type);
+        $job->setCompany($arr->company);
+        $job->setUrl($arr->url);
+        $job->setPosition($arr->position);
+        $job->setLocation($arr->location);
+        $job->setDescription($arr->description);
+        $job->setHowToApply($arr->howToApply);
+        $job->setIsPublic($arr->isPublic);
+        $job->setIsActivated(true);
+        $job->setEmail($arr->email);
+        $job->save();
+        return $this->renderText(json_encode($job));
+        //return $this->renderText("Success edit".$id);
+    }
+
+
+    public function executePost()
+    {
+        $reques_body = file_get_contents('php://input');
+        $arr = json_decode($reques_body);
+        $job = new JobeetJob();
+        $job->setCategoryId($arr->category);
+        $job->setType($arr->type);
+        $job->setCompany($arr->company);
+        $job->setUrl($arr->url);
+        $job->setPosition($arr->position);
+        $job->setLocation($arr->location);
+        $job->setDescription($arr->description);
+        $job->setHowToApply($arr->howToApply);
+        $job->setIsPublic($arr->isPublic);
+        $job->setIsActivated(true);
+        $job->setEmail($arr->email);
+
+        $job->save();
+
+        return $this->renderText(json_encode($job));
     }
 
     public function executeSearch(sfWebRequest $request)

@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('job').component('detailJob', {
-    templateUrl: '/js/job/job-detail.template.html',
+angular.module('job').component('previewJob', {
+    templateUrl: '/js/job/job-preview.template.html',
     controller: ['$http', '$routeParams',
         function detailJob($http, $routeParams) {
             var me = this;

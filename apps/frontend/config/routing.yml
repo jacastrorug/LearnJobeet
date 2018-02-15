@@ -8,6 +8,18 @@ job_post:
   requirements:
     sf_method: [POST]
 
+job_deletejob:
+  url:   /deleteJob
+  param: {module: job, action: deletejob }
+  requirements:
+    sf_method: [POST]
+
+job_editjob:
+  url:   /editJob
+  param: {module: job, action: editjob }
+  requirements:
+    sf_method: [POST]
+
 job_search:
   url:   /:sf_culture/search
   param: { module: job, action: search }

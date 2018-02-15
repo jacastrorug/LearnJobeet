@@ -1,29 +1,41 @@
+<div id="job_actions">
+    <h3>Admin</h3>
+    <ul>
+        <li><a href="#/job/edit/{{$ctrl.index['id']}}">Edit</a></li>
+        <li ng-if="!$ctrl.index['isActivated']">
+            <a>Publish</a></li>
+        <li ng-if="$ctrl.index['isActivated']">
+            <a>Desactivated</a></li>
+
+        <li><a>Delete</a></li>
+    </ul>
+</div>
 <div class="content">
     <div id="job">
-        <h1>{{$ctrl.index[0]['company']}}</h1>
-        <h2>{{$ctrl.index[0]['location']}}</h2>
+        <h1>{{$ctrl.index['company']}}</h1>
+        <h2>{{$ctrl.index['location']}}</h2>
         <h3>
-            {{$ctrl.index[0]['position']}}
-            <small> - {{$ctrl.index[0]['type']}}</small>
+            {{$ctrl.index['position']}}
+            <small> - {{$ctrl.index['type']}}</small>
         </h3>
-        <div ng-if="$ctrl.index[0]['logo']!=null" class="logo">
-            <a ng-href="{{$ctrl.index[0]['url']}}">
-                <img ng-src="/uploads/jobs/{{$ctrl.index[0]['logo']}}">
+        <div ng-if="$ctrl.index['logo']!=null" class="logo">
+            <a ng-href="{{$ctrl.index['url']}}">
+                <img ng-src="/uploads/jobs/{{$ctrl.index['logo']}}">
             </a>
         </div>
-        <div ng-if="$ctrl.index[0]['logo']==null" class="logo">
+        <div ng-if="$ctrl.index['logo']==null" class="logo">
             <a><img src="/uploads/jobs/imagenPrueba.png"></a>
         </div>
         <div class="description">
-            <p>{{$ctrl.index[0]['description']}}</p>
+            <p>{{$ctrl.index['description']}}</p>
         </div>
         <h4>How to apply?</h4>
-        <p class="how_to_apply">{{$ctrl.index[0]['howToApply']}}</p>
+        <p class="how_to_apply">{{$ctrl.index['howToApply']}}</p>
         <div class="meta">
-            <small>posted on {{$ctrl.index[0]['createAt']}}</small>
+            <small>posted on {{$ctrl.index['createdAt']}}</small>
         </div>
         <div style="padding: 10px 10px">
-            <a>Edit</a>
+            <a ng-href="#/job/edit/{{$ctrl.index['id']}}">Edit</a>
         </div>
     </div>
 </div>

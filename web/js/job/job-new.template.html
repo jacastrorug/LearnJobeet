@@ -1,11 +1,13 @@
 <div class="content" ng-controller="postJob">
-    <h1>New Job</h1>
+    <h1 ng-if="$ctrl.isnew">New Job </h1>
+    <h1 ng-if="!$ctrl.isnew">Edit Job </h1>
     <form method="post" name="form">
         <table id="job_form">
             <tfoot>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="Preview your job" ng-click="save(job)">
+                    <input ng-if="$ctrl.isnew" type="submit" value="Preview your job" ng-click="save(job)">
+                    <input ng-if="!$ctrl.isnew" type="submit" value="Edit your job" ng-click="edit(job)">
                 </td>
             </tr>
             </tfoot>
@@ -37,7 +39,7 @@
             </tr>
             <tr>
                 <th><label for="job_company">Company</label></th>
-                <td><input type="text" name="job[company]" id="job_company" ng-model="job.company"></td>
+                <td><input type="text" id="job_company" ng-model="job.company" ></td>
             </tr>
             <tr>
                 <th><label for="job_logo">Company logo</label></th>
@@ -53,7 +55,7 @@
             </tr>
             <tr>
                 <th><label for="job_location">Location</label></th>
-                <td><input type="text" name="job[location]" id="job_location" ng-model="job.location"></td>
+                <td><input type="text" name="job[location]" id="job_location" ng-model="job.location" ></td>
             </tr>
             <tr>
                 <th><label for="job_description">Description</label></th>
@@ -63,20 +65,21 @@
             <tr>
                 <th><label for="job_how_to_apply">How to apply?</label></th>
                 <td><textarea rows="4" cols="30" name="job[how_to_apply]" id="job_how_to_apply"
-                              ng-model="job.howToApply"></textarea></td>
+                              ng-model="job.howToApply" ></textarea></td>
             </tr>
-            <tr>
+            <tr >
                 <th><label for="job_is_public">Public?</label></th>
-                <td><input type="checkbox" checked="checked" id="job_is_public"
-                           ng-model="job.pub"><br>Whether the
+                <td><input type="checkbox"  id="job_is_public"
+                           ng-model="job.isPublic"><br>Whether the
                     job can also be published on affiliate websites or not.
                 </td>
             </tr>
+
             <tr>
                 <th><label for="job_email">Email</label></th>
                 <td><input type="email" name="jobEmail" id="job_email" ng-model="job.email">
                     <span ng-show="form.jobEmail.$error.email">This is not a valid email.</span>
-                    <input type="hidden" name="job[id]" id="job_id">
+                    <input type="hidden" name="job[id]" id="job_id" ng-model="job.id">
                     <input type="hidden" name="job[_csrf_token]" value="f1f7d971f3a1ee9833b73a61b59bae06"
                            id="job__csrf_token"></td>
             </tr>
